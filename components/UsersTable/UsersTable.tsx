@@ -9,6 +9,7 @@ const UsersTable = () => {
 	const [ page, setPage ] = useState(1);
 	const [ rowsPerPage, setRowsPerPage ] = useState(5);
 
+	/** Fetch fake user data on component mount */
 	useEffect(() => {
 		(async function() {
 			try {
@@ -38,22 +39,22 @@ const UsersTable = () => {
 		<section>
 			{loading ? (
 				'Cargando usuarios'
-			) : !loading && users.length > 0 ? (
-				<div className="my-4 grid grid-col-12 w-full text-left">
-					<div className="flex items-center col-span-12 h-[56px]">
+			) : !loading && filteredUsers.length > 0 ? (
+				<div className="my-4 flex flex-col text-left ">
+					<div className="flex items-center col-span-12 h-[56px] font-semibold text-sm">
 						<div className="w-[60px] text-center">
 							<input aria-disabled type="checkbox" />
 						</div>
-						<div className="w-[303px]">
+						<div className="xl:w-[250px] 2xl:w-[303px]">
 							Administradores
 							<button>
 								<img className="inline-block mx-4" src="/assets/svgs/arrow-down.svg" aria-hidden />
 							</button>
 						</div>
 						<div className="w-[165px]">Área</div>
-						<div className="w-[263px]">Correo</div>
-						<div className="w-[178px]">Estatus</div>
-						<div className="w-auto">Detalles</div>
+						<div className="xl:w-[230px] 2xl:w-[263px]">Correo</div>
+						<div className="xl:w-[110px] 2xl:w-[178px]">Estatus</div>
+						<div className="w-[118px]">Detalles</div>
 					</div>
 
 					{filteredUsers.map((user: any) => (

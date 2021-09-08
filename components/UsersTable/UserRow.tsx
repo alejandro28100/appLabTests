@@ -14,9 +14,9 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive }) => 
 	return (
 		<div className="flex align-items w-full col-span-12 h-[72px] hover:bg-terciary text-sm border-t-[1px] border-b-[1px] border-terciary">
 			<div className="flex items-center justify-center w-[60px] text-center">
-				<input type="checkbox" />
+				<input aria-disabled type="checkbox" />
 			</div>
-			<div className="w-[303px] flex items-center justify-start font-semibold">
+			<div className="xl:w-[250px] 2xl:-w-[303px] flex items-center justify-start font-semibold">
 				<img
 					className="inline-block w-10 h-10 mr-2 rounded-full "
 					src={picture}
@@ -25,8 +25,8 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive }) => 
 				{name}
 			</div>
 			<div className="flex items-center w-[165px]">{area}</div>
-			<div className="flex items-center w-[263px]">{email}</div>
-			<div className="flex items-center justify-start w-[178px] uppercase text-xs">
+			<div className="flex items-center xl:w-[230px] 2xl:w-[263px] truncate">{email}</div>
+			<div className="xl:w-[110px] 2xl:w-[178px] flex items-center uppercase text-xs">
 				<span
 					className={` p-1 rounded-sm ${isActive
 						? 'text-[#4CAF50] bg-[#E8F5E9]'
@@ -35,7 +35,7 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive }) => 
 					{isActive ? 'Activo' : 'Inactivo'}
 				</span>
 			</div>
-			<div className="flex items-center space-x-5 pr-5">
+			<div className="w-[118px] flex items-center space-x-5 pr-5">
 				<button title="Editar">
 					<img aria-hidden src="/assets/svgs/edit.svg" />
 				</button>
