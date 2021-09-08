@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<{}> {
 const Input: FC<InputProps> = ({ rightIcon, className, ...rest }) => {
 	return (
 		<Fragment>
-			<div className="flex items-center  border-b-2 border-transparent focus-within:border-white">
+			<div className="flex items-center transition-colors ease duration-300  border-b-2 border-transparent focus-within:border-white">
 				<input
 					{...rest}
 					type="text"
