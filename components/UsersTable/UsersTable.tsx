@@ -1,5 +1,5 @@
-import React, { useEffect, useState, FC, Fragment, useCallback } from 'react';
-import { getRandomStatus, getName } from 'utils/index';
+import React, { useEffect, useState, useCallback } from 'react';
+import { getRandomStatus, getName, getFirstItem, getLastItem, getRangeString, nextPageExist } from 'utils/index';
 import UserRow from './UserRow';
 import UserTableSearchBar from './UserTableSearchBar';
 
@@ -22,6 +22,7 @@ const UsersTable = () => {
 	});
 
 	const { name = '', status, area } = filters;
+	const shouldFilter = name.length > 0 || status !== undefined || area !== undefined;
 	/** Create a memoized function to avoid unecessary calculations 
 	 * when filters do not change 
 	 * 
@@ -55,6 +56,13 @@ const UsersTable = () => {
 			}
 		})();
 	}, []);
+	/** Every time filters change make sure the pagination is reseted */
+	useEffect(
+		() => {
+			setPage(1);
+		},
+		[ filters ]
+	);
 
 	useEffect(
 		() => {
@@ -62,10 +70,7 @@ const UsersTable = () => {
 				const start = rowsPerPage * page - rowsPerPage;
 				const end = start + rowsPerPage;
 
-				const shouldFilter = name.length > 0 || status !== undefined || area !== undefined;
-
 				const newFilteredUsers = shouldFilter ? usersWithFilters() : [ ...users ];
-
 				setFilteredUsers(newFilteredUsers.slice(start, end));
 			}
 		},
@@ -119,8 +124,11 @@ const UsersTable = () => {
 								onChange={(e) => setRowsPerPage(parseInt(e.target.value) || 0)}
 							/>
 						</div>
-						<div className="">
-							{`${page * rowsPerPage - rowsPerPage + 1}-${rowsPerPage * page} of ${users.length}`}
+						<div>
+							{`${getRangeString(
+								getFirstItem(page, rowsPerPage),
+								getLastItem(page, rowsPerPage, usersWithFilters().length || users.length)
+							)} of ${shouldFilter ? usersWithFilters().length : users.length}`}
 						</div>
 						<div className="mx-11 space-x-7">
 							<button
@@ -133,7 +141,11 @@ const UsersTable = () => {
 							</button>
 							<button
 								className="disabled:opacity-40"
-								disabled={page * rowsPerPage + rowsPerPage - 1 > users.length}
+								disabled={nextPageExist(
+									page,
+									rowsPerPage,
+									shouldFilter ? usersWithFilters().length : users.length
+								)}
 								title="Siguiente página"
 								onClick={() => setPage((prev) => ++prev)}
 							>
