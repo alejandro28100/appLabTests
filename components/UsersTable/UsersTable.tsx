@@ -1,13 +1,45 @@
-import React, { useEffect, useState, FC } from 'react';
+import React, { useEffect, useState, FC, Fragment, useCallback } from 'react';
 import { getRandomStatus, getName } from 'utils/index';
 import UserRow from './UserRow';
+import UserTableSearchBar from './UserTableSearchBar';
+
+export interface UserFilters {
+	name: string | undefined;
+	area: string | undefined;
+	status: boolean | undefined;
+}
 
 const UsersTable = () => {
-	const [ users, setUsers ] = useState<any>(undefined);
-	const [ filteredUsers, setFilteredUsers ] = useState<any>([]);
+	const [ users, setUsers ] = useState<any[]>([]);
+	const [ filteredUsers, setFilteredUsers ] = useState<any[]>([]);
 	const [ loading, setLoading ] = useState(true);
 	const [ page, setPage ] = useState(1);
 	const [ rowsPerPage, setRowsPerPage ] = useState(5);
+	const [ filters, setFilters ] = useState<UserFilters>({
+		name: '',
+		area: undefined,
+		status: undefined
+	});
+
+	const { name = '', status, area } = filters;
+	/** Create a memoized function to avoid unecessary calculations 
+	 * when filters do not change 
+	 * 
+	 * returns filtered users
+	 * */
+	const usersWithFilters = useCallback(
+		(): any[] => {
+			return [ ...users ].filter((user) => {
+				let matches = false;
+				if (name.length > 0) {
+					const userName = getName(user);
+					matches = userName.toLowerCase().includes(name.trim().toLowerCase());
+				}
+				return matches;
+			});
+		},
+		[ users, filters ]
+	);
 
 	/** Fetch fake user data on component mount */
 	useEffect(() => {
@@ -29,14 +61,20 @@ const UsersTable = () => {
 			if (!loading && users.length > 0) {
 				const start = rowsPerPage * page - rowsPerPage;
 				const end = start + rowsPerPage;
-				setFilteredUsers([ ...users ].slice(start, end));
+
+				const shouldFilter = name.length > 0 || status !== undefined || area !== undefined;
+
+				const newFilteredUsers = shouldFilter ? usersWithFilters() : [ ...users ];
+
+				setFilteredUsers(newFilteredUsers.slice(start, end));
 			}
 		},
-		[ page, rowsPerPage, loading ]
+		[ page, rowsPerPage, loading, filters ]
 	);
 
 	return (
 		<section>
+			<UserTableSearchBar filters={filters} setFilters={setFilters} />
 			{loading ? (
 				'Cargando usuarios'
 			) : !loading && filteredUsers.length > 0 ? (
