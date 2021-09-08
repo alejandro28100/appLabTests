@@ -1,5 +1,6 @@
 import Input from 'components/Input';
 import React, { FC } from 'react';
+import { getName } from 'utils/index';
 
 // https://randomuser.me/api
 interface Searchbar {
@@ -39,12 +40,5 @@ const UserInfo: FC<UserInfoProps> = ({ name, picture }) => {
 		</div>
 	);
 };
-
-/** Return the complete name of a user from a nested object */
-function getName(user: any) {
-	if (!user) return '';
-	const { first, last } = user.name;
-	return `${first} ${last}`;
-}
 
 export default Searchbar;
