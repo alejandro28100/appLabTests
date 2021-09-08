@@ -14,7 +14,10 @@ const Searchbar: FC<Searchbar> = ({ user, loading }) => {
 
 	return (
 		<div className="flex items-center justify-end bg-secondary w-full h-20 p-6">
-			<Input rightIcon="/assets/svgs/search.svg" />
+			<Input
+				inputContainerClassName="text-white transition-colors ease duration-300  border-b-2 border-transparent focus-within:border-white"
+				rightIcon="/assets/svgs/search.svg"
+			/>
 			<div className="w-px h-full bg-white mx-4 text-sm" />
 			{!loading && user && <UserInfo name={name} picture={user.picture.thumbnail} />}
 			<button>
