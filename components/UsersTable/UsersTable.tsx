@@ -121,7 +121,9 @@ const UsersTable = () => {
 								className=" mx-2 w-14 text-center"
 								type="number"
 								value={rowsPerPage}
-								onChange={(e) => setRowsPerPage(parseInt(e.target.value) || 0)}
+									min={1}
+									max={ shouldFilter ? usersWithFilters().length : users.length}
+								onChange={(e) => setRowsPerPage(parseInt(e.target.value) || 1)}
 							/>
 						</div>
 						<div>
