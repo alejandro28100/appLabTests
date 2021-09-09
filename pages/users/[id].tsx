@@ -22,33 +22,42 @@ const UserProfile: NextPage = (props) => {
 
 	// / Use type any because we do not know the user date interface
 	const [ user, setUser ] = useState<User | undefined>(undefined);
-	const [ loading, setLoading ] = useState(true);
-	const [ isEditing, setIsEditing ] = useState(Boolean(router.query.edit));
+	const [loading, setLoading] = useState(true);
+	const [ isEditing, setIsEditing ] = useState(false);
 
 	useEffect(() => {
-		// Fake fetching user data
-		(async function() {
-			setTimeout(() => {
-				try {
-					setUser({
-						name: {
-							first: 'Andrés',
-							last: 'Ramirez'
-						},
-						email: 'andrés.ramirez@gmail.com',
-						picture:
-							'https://images.pexels.com/photos/7252301/pexels-photo-7252301.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-						area: 'Recursos Humanos',
-						isActive: true
-					});
-				} catch (error) {
-					console.error('Error getting the user');
-				} finally {
-					setLoading(false);
-				}
-			}, 1500);
+		// Fake fetching user data on mount
+		(function () {
+			
+			if (!router.isReady) return;
+			try {
+				setUser({
+					name: {
+						first: 'Andrés',
+						last: 'Ramirez'
+					},
+					email: 'andrés.ramirez@gmail.com',
+					picture:
+						'https://images.pexels.com/photos/7252301/pexels-photo-7252301.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+					area: 'Recursos Humanos',
+					isActive: true
+				});
+
+				/**
+				 * Router Query Params are undefined on mount because of Next JS 
+				 * SSR Optimization for static pages.
+				 * Query params become available after page hydration
+				 * We should wait until router.isReady is true 
+				 * to get access to the router.query properties 
+				 */
+				setIsEditing(Boolean(router.query.edit))
+			} catch (error) {
+				console.error('Error getting the user');
+			} finally {
+				setLoading(false);
+			}
 		})();
-	}, []);
+	}, [router]);
 
 	function handleEditUser() {
 		setIsEditing((prevValue) => !prevValue);
