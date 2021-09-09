@@ -4,15 +4,9 @@ import Head from 'next/head';
 import Sidebar from 'components/Sidebar/Sidebar';
 import Searchbar from 'components/Searchbar/Searchbar';
 import UsersTable from 'components/UsersTable/UsersTable';
+import { fakeAdminUser } from 'utils/index';
 
 const Home: NextPage = () => {
-	const fakeAdminUser = {
-		name: 'Carlos Sánchez',
-		picture:
-			'https://images.pexels.com/photos/7252301/pexels-photo-7252301.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-		area: 'Recursos Humanos'
-	};
-
 	return (
 		<Fragment>
 			<Head>

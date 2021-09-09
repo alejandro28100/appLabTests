@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Sidebar from 'components/Sidebar/Sidebar';
 import Searchbar from 'components/Searchbar/Searchbar';
-import { getName } from 'utils/index';
+import { fakeAdminUser, getName } from 'utils/index';
 
 interface User {
 	name: {
@@ -83,12 +83,6 @@ const UserProfile: NextPage = (props) => {
 		} as User))
 		
 	}
-	const fakeAdminUser = {
-		name: 'Carlos Sánchez',
-		picture:
-			'https://images.pexels.com/photos/7252301/pexels-photo-7252301.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-		area: 'Recursos Humanos'
-	};
 
 	const userName = getName(user);
 
