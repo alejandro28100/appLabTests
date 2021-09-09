@@ -74,8 +74,12 @@ const UsersTable = () => {
 				setFilteredUsers(newFilteredUsers.slice(start, end));
 			}
 		},
-		[ page, rowsPerPage, loading, filters ]
+		[ page, rowsPerPage, loading, filters, users ]
 	);
+
+	function deleteUser(userID: string) {
+		setUsers((users) => users.filter((user) => user.login.uuid !== userID));
+	}
 
 	return (
 		<section>
@@ -109,7 +113,8 @@ const UsersTable = () => {
 								email: user.email,
 								name: getName(user),
 								area: 'Recursos Humanos',
-								isActive: getRandomStatus()
+								isActive: getRandomStatus(),
+								deleteUser
 							}}
 						/>
 					))}
