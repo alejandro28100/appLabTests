@@ -46,7 +46,7 @@ const UsersTable = () => {
 	useEffect(() => {
 		(async function() {
 			try {
-				const result = await fetch('https://randomuser.me/api/?nat=es&results=100');
+				const result = await fetch('https://randomuser.me/api/?nat=es&results=100&seed=appLab');
 				const json = await result.json();
 				setUsers(json.results);
 			} catch (error) {
@@ -121,8 +121,8 @@ const UsersTable = () => {
 								className=" mx-2 w-14 text-center"
 								type="number"
 								value={rowsPerPage}
-									min={1}
-									max={ shouldFilter ? usersWithFilters().length : users.length}
+								min={1}
+								max={shouldFilter ? usersWithFilters().length : users.length}
 								onChange={(e) => setRowsPerPage(parseInt(e.target.value) || 1)}
 							/>
 						</div>

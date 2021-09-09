@@ -1,17 +1,18 @@
 import Input from 'components/Input';
 import React, { FC } from 'react';
-import { getName } from 'utils/index';
 
-// https://randomuser.me/api
+interface UserProps {
+	name: string;
+	picture: string;
+	area: string;
+}
+
 interface Searchbar {
-	/** User record from an api */
-	user?: any;
+	user: UserProps;
 	loading: boolean;
 }
 
 const Searchbar: FC<Searchbar> = ({ user, loading }) => {
-	const name = getName(user);
-
 	return (
 		<div className="flex items-center justify-end bg-secondary w-full h-20 p-6">
 			<Input
@@ -19,7 +20,7 @@ const Searchbar: FC<Searchbar> = ({ user, loading }) => {
 				rightIcon="/assets/svgs/search.svg"
 			/>
 			<div className="w-px h-full bg-white mx-4 text-sm" />
-			{!loading && user && <UserInfo name={name} picture={user.picture.thumbnail} />}
+			{!loading && user && <UserInfo {...user} />}
 			<button>
 				<img src="/assets/svgs/log-out.svg" alt="Cerrar Sesión" />
 			</button>
@@ -27,18 +28,13 @@ const Searchbar: FC<Searchbar> = ({ user, loading }) => {
 	);
 };
 
-interface UserInfoProps {
-	name: string;
-	picture: string;
-}
-
-const UserInfo: FC<UserInfoProps> = ({ name, picture }) => {
+const UserInfo: FC<UserProps> = ({ name, picture, area }) => {
 	return (
 		<div className="flex align-center space-x-2 mx-5">
-			<img className="rounded-full" src={picture} alt={`Foto de perfil de ${name}`} />
+			<img className="rounded-full w-10 h-10 object-cover" src={picture} alt={`Foto de perfil de ${name}`} />
 			<article className="text-white">
 				<h3>{name}</h3>
-				<p>Recursos Humanos</p>
+				<p>{area}</p>
 			</article>
 		</div>
 	);

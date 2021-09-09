@@ -1,4 +1,5 @@
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
+import Link from 'next/link';
 
 interface UserRowProps {
 	id: string;
@@ -36,15 +37,20 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive }) => 
 				</span>
 			</div>
 			<div className="w-[118px] flex items-center space-x-5 pr-5">
-				<button title="Editar">
-					<img aria-hidden src="/assets/svgs/edit.svg" />
-				</button>
+				<Link href={`/users/${name}?edit=true`}>
+					<a title="Editar información">
+						<img aria-hidden src="/assets/svgs/edit.svg" />
+					</a>
+				</Link>
+
 				<button title="Eliminar">
 					<img aria-hidden src="/assets/svgs/delete.svg" />
 				</button>
-				<button title="Ver">
-					<img aria-hidden src="/assets/svgs/inspect.svg" />
-				</button>
+				<Link href={`/users/${name}`}>
+					<a title="Ver perfil">
+						<img aria-hidden src="/assets/svgs/edit.svg" />
+					</a>
+				</Link>
 			</div>
 		</div>
 	);
