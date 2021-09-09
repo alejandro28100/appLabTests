@@ -31,8 +31,12 @@ export function getFirstItem(page:number, itemsPerPage: number){
  * getLastItem(1,10,100) => 10
  * 
  * getLastItem(2,10,100) => 20
+ * 
+ * getLastItem(7, 16,100) => 100
  */
- export function getLastItem(page:number, itemsPerPage: number, totalItems: number){
+export function getLastItem(page: number, itemsPerPage: number, totalItems: number) {
+	 /** When the totalItems count exceeds the expected items count per page (itemsPerPage * page ) 
+	  * means that the amount of items remaining for a given page is less than the itemsPerPage count */
 	return totalItems > itemsPerPage * page
 		? itemsPerPage * page
 		: totalItems;
@@ -51,7 +55,7 @@ export function getRangeString(start:number, end:number) {
 }
 
 /** Rerturn whether theres a next page depending 
- * on the current page , itemsPerPage & the totalItems amount
+ * on the current page , itemsPerPage & the total amount of items 
  * 
  * Example:
  * 
@@ -59,9 +63,14 @@ export function getRangeString(start:number, end:number) {
  * nextPageExist(10,5,100) => true
  */
 export function nextPageExist(currentPage:number, itemsPerPage:number, totalItems:number) {
-	return currentPage * itemsPerPage + itemsPerPage - 1 > totalItems;
+	return currentPage * itemsPerPage < totalItems;
 }
 
+
+export function matchesName(name: string, searchString: string):boolean {
+	if(searchString.length <= 0) return false;
+	return name.toLowerCase().includes(searchString.trim().toLowerCase())
+}
 
 export 	const fakeAdminUser = {
 	name: 'Carlos Sánchez',

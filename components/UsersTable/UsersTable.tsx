@@ -1,7 +1,17 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { getRandomStatus, getName, getFirstItem, getLastItem, getRangeString, nextPageExist } from 'utils/index';
+import React, { useEffect, useState, useCallback, ChangeEvent } from 'react';
+
 import UserRow from './UserRow';
 import UserTableSearchBar from './UserTableSearchBar';
+
+import {
+	getRandomStatus,
+	getName,
+	getFirstItem,
+	getLastItem,
+	getRangeString,
+	nextPageExist,
+	matchesName
+} from 'utils/index';
 
 export interface UserFilters {
 	name: string | undefined;
@@ -11,10 +21,10 @@ export interface UserFilters {
 
 const UsersTable = () => {
 	const [ users, setUsers ] = useState<any[]>([]);
-	const [ filteredUsers, setFilteredUsers ] = useState<any[]>([]);
 	const [ loading, setLoading ] = useState(true);
 	const [ page, setPage ] = useState(1);
 	const [ rowsPerPage, setRowsPerPage ] = useState(5);
+
 	const [ filters, setFilters ] = useState<UserFilters>({
 		name: '',
 		area: undefined,
@@ -24,23 +34,39 @@ const UsersTable = () => {
 	const { name = '', status, area } = filters;
 	const shouldFilter = name.length > 0 || status !== undefined || area !== undefined;
 	/** Create a memoized function to avoid unecessary calculations 
-	 * when filters do not change 
 	 * 
-	 * returns filtered users
+	 * returns filtered users paginated
 	 * */
-	const usersWithFilters = useCallback(
+	const getFilteredUsers = useCallback(
 		(): any[] => {
-			return [ ...users ].filter((user) => {
-				let matches = false;
-				if (name.length > 0) {
-					const userName = getName(user);
-					matches = userName.toLowerCase().includes(name.trim().toLowerCase());
-				}
-				return matches;
-			});
+			if (loading && users.length < 0) return [];
+			//First idx in page
+			const start = rowsPerPage * page - rowsPerPage;
+			//Last idx in page
+			const end = start + rowsPerPage;
+			if (shouldFilter) {
+				// When filters change pagination is reseted
+				const start = rowsPerPage * 1 - rowsPerPage;
+				return [ ...users ]
+					.filter((user) => {
+						let matches = false;
+						const userName = getName(user);
+						matches = matchesName(userName, name);
+						/** Extra filters here */
+						/**{...} */
+						return matches;
+					})
+					.slice(start, end);
+			}
+			return [ ...users ].slice(start, end);
 		},
-		[ users, filters ]
+		[ users, filters, page, rowsPerPage, loading ]
 	);
+	const totalUsersCount = users.length;
+	const filteredUsers = getFilteredUsers();
+	const filteredUsersCount = filteredUsers.length;
+
+	const totalUsers = shouldFilter && filteredUsersCount < totalUsersCount ? filteredUsersCount : totalUsersCount;
 
 	/** Fetch fake user data on component mount */
 	useEffect(() => {
@@ -56,7 +82,7 @@ const UsersTable = () => {
 			}
 		})();
 	}, []);
-	/** Every time filters change make sure the pagination is reseted */
+	/** Every time filters change make sure pagination is reseted */
 	useEffect(
 		() => {
 			setPage(1);
@@ -64,29 +90,36 @@ const UsersTable = () => {
 		[ filters ]
 	);
 
-	useEffect(
-		() => {
-			if (!loading && users.length > 0) {
-				const start = rowsPerPage * page - rowsPerPage;
-				const end = start + rowsPerPage;
-
-				const newFilteredUsers = shouldFilter ? usersWithFilters() : [ ...users ];
-				setFilteredUsers(newFilteredUsers.slice(start, end));
-			}
-		},
-		[ page, rowsPerPage, loading, filters, users ]
-	);
-
 	function deleteUser(userID: string) {
 		setUsers((users) => users.filter((user) => user.login.uuid !== userID));
 	}
+
+	function handleNextPage() {
+		setPage((prev) => ++prev);
+	}
+
+	function handlePrevPage() {
+		setPage((prev) => --prev);
+	}
+	function handleChangeRowPerPage(e: ChangeEvent<HTMLInputElement>) {
+		const value = parseInt(e.target.value) || 1;
+		setRowsPerPage(value);
+	}
+	/** Return current range of items in the table view
+	 * 
+	 * e.g. => 1-5 of 100
+	 */
+	const currentTableRange = `${getRangeString(
+		getFirstItem(page, rowsPerPage),
+		getLastItem(page, rowsPerPage, totalUsers)
+	)} of ${totalUsers}`;
 
 	return (
 		<section>
 			<UserTableSearchBar filters={filters} setFilters={setFilters} />
 			{loading ? (
 				'Cargando usuarios'
-			) : !loading && filteredUsers.length > 0 ? (
+			) : !loading && filteredUsersCount > 0 ? (
 				<div className="my-4 flex flex-col text-left ">
 					<div className="flex items-center col-span-12 h-[56px] font-semibold text-sm">
 						<div className="w-[60px] text-center">
@@ -127,34 +160,25 @@ const UsersTable = () => {
 								type="number"
 								value={rowsPerPage}
 								min={1}
-								max={shouldFilter ? usersWithFilters().length : users.length}
-								onChange={(e) => setRowsPerPage(parseInt(e.target.value) || 1)}
+								max={totalUsers}
+								onChange={handleChangeRowPerPage}
 							/>
 						</div>
-						<div>
-							{`${getRangeString(
-								getFirstItem(page, rowsPerPage),
-								getLastItem(page, rowsPerPage, usersWithFilters().length || users.length)
-							)} of ${shouldFilter ? usersWithFilters().length : users.length}`}
-						</div>
+						<div>{currentTableRange}</div>
 						<div className="mx-11 space-x-7">
 							<button
 								className="disabled:opacity-40"
 								title="Página anterior"
 								disabled={page <= 1}
-								onClick={() => setPage((prev) => --prev)}
+								onClick={handlePrevPage}
 							>
 								<img aria-hidden src="/assets/svgs/arrow-left.svg" />
 							</button>
 							<button
 								className="disabled:opacity-40"
-								disabled={nextPageExist(
-									page,
-									rowsPerPage,
-									shouldFilter ? usersWithFilters().length : users.length
-								)}
+								disabled={!nextPageExist(page, rowsPerPage, totalUsers)}
 								title="Siguiente página"
-								onClick={() => setPage((prev) => ++prev)}
+								onClick={handleNextPage}
 							>
 								<img aria-hidden src="/assets/svgs/arrow-right.svg" />
 							</button>
