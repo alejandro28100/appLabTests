@@ -2,9 +2,13 @@ import React, { ChangeEvent, FormEvent, Fragment, useRef, useState } from 'react
 import { NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
+
 import Sidebar from 'components/Sidebar/Sidebar';
-import Input from 'components/Input';
 import Searchbar from 'components/Searchbar/Searchbar';
+import InputWithLabel from 'components/InputWithLabel';
+import SelectWithLabel from 'components/SelectWithLabel';
+import FileInput from 'components/FileInput';
+
 import { fakeAdminUser } from 'utils/index';
 
 interface FormProps {
@@ -29,8 +33,6 @@ const AddUser: NextPage = (props) => {
 	const { image, name, lastName, email, area, status } = form;
 
 	const [ isUserSaved, setIsUserSaved ] = useState(false);
-
-	const imageInputRef = useRef<HTMLInputElement>(null);
 
 	function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -113,141 +115,73 @@ const AddUser: NextPage = (props) => {
 									<p className="font-normal leading-6 text-sm my-3">
 										Sube tu fotografía con un peso menor a 2MB
 									</p>
-									<div className="w-[196px] h-[202px] shadow relative flex flex-col justify-center rounded">
-										<div className="h-[108px] flex-grow bg-terciary flex items-center justify-center">
-											{form && image ? (
-												<img
-													className="w-full h-full object-cover rounded-t"
-													src={image}
-													alt=""
-												/>
-											) : (
-												<img
-													className="w-[52px] h-[52px] object-cover"
-													aria-hidden
-													src="/assets/svgs/upload_image.svg"
-													alt=""
-												/>
-											)}
-										</div>
 
-										<div className="text-center">
-											<p className="my-3 text-center font-normal text-[11px] leading-3">
-												Arrastra tu archivo o
-											</p>
-											<button className="self-center text-center border-[1px] border-secondary mb-4 px-4 py-3 rounded-[4px] text-[13px] leading-[18px]">
-												Selecciona
-											</button>
-										</div>
+									<FileInput
+										containerClassName="w-[196px] h-[202px]"
+										imagePreview={image}
+										multiple={false}
+										onChange={handleImageInputChange}
+									/>
 
-										<input
-											ref={imageInputRef}
-											className="absolute top-0 left-0 w-full h-full opacity-0"
-											type="file"
-											multiple={false}
-											onChange={handleImageInputChange}
-											id="image"
-										/>
-									</div>
-									<div className="relative w-[308px] my-[30px] ">
-										<label
-											className="absolute mx-3 p-1 bg-white font-normal leading-3 text-xs -translate-y-1/2"
-											htmlFor="name"
-										>
-											Nombre (s)
-										</label>
-										<input
-											required
-											value={name}
-											onChange={(e) => handleInputChange(e, 'name')}
-											className="rounded-lg py-4 px-3 border-terciary border-[1px] leading-4 font-normal text-base w-full"
-											id="name"
-											type="text"
-											placeholder="Nombre (s)"
-										/>
-									</div>
+									<InputWithLabel
+										type="text"
+										placeholder="Nombre (s)"
+										value={name}
+										onChange={(e) => handleInputChange(e, 'name')}
+										id="name"
+										label="Nombre (s)"
+										required
+										containerClassName="w-[308px] my-[30px]"
+									/>
 
-									<div className="relative w-[308px] my-[30px] ">
-										<label
-											className="absolute mx-3 p-1 bg-white font-normal leading-3 text-xs -translate-y-1/2"
-											htmlFor="lastName"
-										>
-											Apellidos
-										</label>
-										<input
-											required
-											value={lastName}
-											onChange={(e) => handleInputChange(e, 'lastName')}
-											className="rounded-lg py-4 px-3 border-terciary border-[1px] leading-4 font-normal text-base w-full"
-											id="lastName"
-											type="text"
-											placeholder="Apellidos"
-										/>
-									</div>
-									<div className="relative w-[308px] my-[30px] ">
-										<label
-											className="absolute mx-3 p-1 bg-white font-normal leading-3 text-xs -translate-y-1/2"
-											htmlFor="email"
-										>
-											Correo Electrónico
-										</label>
-										<input
-											required
-											value={email}
-											onChange={(e) => handleInputChange(e, 'email')}
-											className="rounded-lg py-4 px-3 border-terciary border-[1px] leading-4 font-normal text-base w-full"
-											id="email"
-											type="text"
-											placeholder="Correo electrónico"
-										/>
-									</div>
+									<InputWithLabel
+										label="Apellidos"
+										value={lastName}
+										onChange={(e) => handleInputChange(e, 'lastName')}
+										containerClassName="w-[308px] my-[30px]"
+										id="lastName"
+										required
+										placeholder="Apellidos"
+									/>
 
-									<div className="relative w-[308px] my-[30px]">
-										<label
-											className="absolute mx-3 px-1 bg-white font-normal text-xs -translate-y-1/2"
-											htmlFor="job-area"
-										>
-											Área
-										</label>
-										<select
-											value={area}
-											onChange={(e) => handleSelectChange(e, 'area')}
-											id="job-area"
-											className="py-5 px-3 border-[1px] border-terciary rounded-lg w-full"
-										>
-											<option value="">Recursos Humanos</option>
-										</select>
-									</div>
-									<div className="relative w-[308px] my-[30px]">
-										<label
-											className="absolute mx-3 px-1 bg-white font-normal text-xs -translate-y-1/2"
-											htmlFor="user-status"
-										>
-											Estatus
-										</label>
-										<select
-											value={String(status)}
-											onChange={(e) => handleSelectChange(e, 'status')}
-											className="py-5 px-3 border-[1px] border-terciary rounded-lg w-full"
-											id="user-status"
-										>
-											<option value="true">Activo</option>
-											<option value="false">Inactivo</option>
-										</select>
-									</div>
+									<InputWithLabel
+										label="Correo Electrónico"
+										id="email"
+										containerClassName="w-[308px] my-[30px]"
+										required
+										value={email}
+										onChange={(e) => handleInputChange(e, 'email')}
+										type="text"
+										placeholder="Correo electrónico"
+									/>
+
+									<SelectWithLabel
+										containerClassName="w-[308px] my-[30px]"
+										id="job-area"
+										label="Área"
+										value={area}
+										onChange={(e) => handleSelectChange(e, 'area')}
+									>
+										<option value="">Recursos Humanos</option>
+									</SelectWithLabel>
+
+									<SelectWithLabel
+										containerClassName="w-[308px] my-[30px]"
+										id="user-status"
+										label="Estatus"
+										value={String(status)}
+										onChange={(e) => handleSelectChange(e, 'status')}
+									>
+										<option value="true">Activo</option>
+										<option value="false">Inactivo</option>
+									</SelectWithLabel>
 
 									<hr className="h-px w-full text-terciary my-10" />
 									<div className="space-x-4">
-										<button
-											type="reset"
-											className="self-center text-center border-[1px] border-secondary mb-4 px-4 py-3 rounded-[4px] text-[13px] leading-[18px]"
-										>
+										<button type="reset" className="self-center btn secondary outlined">
 											Cancelar
 										</button>
-										<button
-											type="submit"
-											className="self-center text-center bg-secondary text-white mb-4 px-4 py-3 rounded-[4px] text-[13px] leading-[18px]"
-										>
+										<button type="submit" className="self-center btn secondary">
 											Agregar administrador
 										</button>
 									</div>
@@ -268,9 +202,7 @@ const AddUser: NextPage = (props) => {
 
 									<div className="mt-9 ">
 										<Link href="/">
-											<a className="bg-secondary text-white px-4 py-3 rounded-[4px] leading-[18px]">
-												Regresar amis administradores
-											</a>
+											<a className="btn secondary">Regresar a mis administradores</a>
 										</Link>
 									</div>
 								</Fragment>

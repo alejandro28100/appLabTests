@@ -1,9 +1,12 @@
 import React, { ChangeEvent, Fragment, useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
+
 import { useRouter } from 'next/router';
+
 import Sidebar from 'components/Sidebar/Sidebar';
 import Searchbar from 'components/Searchbar/Searchbar';
+
 import { fakeAdminUser, getName } from 'utils/index';
 
 interface User {
@@ -142,7 +145,7 @@ const UserProfile: NextPage = (props) => {
 												Apellidos
 											</label>
 											<input
-													onChange={(e) => handleOnUserChange(e, 'name last')}
+												onChange={(e) => handleOnUserChange(e, 'name last')}
 												disabled={!isEditing}
 												className={`leading-6 font-semibold w-full ${ isEditing ? "bg-terciary" :"bg-transparent"} rounded-lg px-2 py-1`}
 												type="text"
@@ -193,7 +196,7 @@ const UserProfile: NextPage = (props) => {
 									<div className="my-4">
 										<button
 											onClick={handleEditUser}
-											className="py-3 px-4 bg-secondary text-white rounded-[4px]"
+											className="btn secondary"
 										>
 											{isEditing ? 'Guardar Cambios' :'Editar Administador'  }
 										</button>
@@ -207,5 +210,6 @@ const UserProfile: NextPage = (props) => {
 		</Fragment>
 	);
 };
+
 
 export default UserProfile;

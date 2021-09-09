@@ -1,6 +1,6 @@
 import React, { Fragment, FC, InputHTMLAttributes } from 'react';
 
-interface InputProps extends InputHTMLAttributes<{}> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	/** svg file source */
 	rightIcon?: string;
 	/** svg file source */

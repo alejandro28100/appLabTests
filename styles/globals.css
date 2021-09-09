@@ -7,3 +7,18 @@
 
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.btn {
+		@apply py-3 px-4 rounded text-[13px] leading-[18px];
+	}
+	.btn.secondary {
+		@apply bg-secondary text-white hover:brightness-90;
+	}
+	.btn.secondary.outlined {
+		@apply border border-secondary text-primary bg-transparent hover:bg-terciary/30;
+	}
+	.btn.terciary {
+		@apply bg-terciary text-primary hover:brightness-90;
+	}
+}

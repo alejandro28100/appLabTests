@@ -31,7 +31,7 @@ const Searchbar: FC<Searchbar> = ({ user, loading }) => {
 const UserInfo: FC<UserProps> = ({ name, picture, area }) => {
 	return (
 		<div className="flex align-center space-x-2 mx-5">
-			<img className="rounded-full w-10 h-10 object-cover" src={picture} alt={`Foto de perfil de ${name}`} />
+			<img className="rounded-full w-10 h-10 object-cover" src={picture} alt={name} />
 			<article className="text-white">
 				<h3>{name}</h3>
 				<p>{area}</p>

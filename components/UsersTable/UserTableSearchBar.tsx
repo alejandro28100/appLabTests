@@ -1,7 +1,10 @@
 import React, { FC, Dispatch, SetStateAction, ChangeEvent, Fragment } from 'react';
+import Link from 'next/link';
+
 import Input from 'components/Input';
-import { UserFilters } from './UsersTable';
 import { Popover } from '@headlessui/react';
+
+import { UserFilters } from './UsersTable';
 
 interface UserTableSearchBarProps {
 	filters: UserFilters;
@@ -15,7 +18,7 @@ const UserTableSearchBar: FC<UserTableSearchBarProps> = ({ filters, setFilters }
 	}
 
 	return (
-		<div className="mt-6 mb-4 flex ">
+		<div className="mt-6 mb-4 flex items-center">
 			<Input
 				value={filters.name}
 				onChange={handleInputChange}
@@ -24,12 +27,12 @@ const UserTableSearchBar: FC<UserTableSearchBarProps> = ({ filters, setFilters }
 				leftIcon="/assets/svgs/searchGray.svg"
 				placeholder="Buscar"
 			/>
-			<button className="mx-6 bg-terciary rounded-[4px] py-3 px-4 hover:bg-terciary/80">Buscar</button>
+			<button className="mx-6 btn terciary">Buscar</button>
 
 			<Popover className="relative">
 				<Popover.Button
 					title="Filtros de búsqueda"
-					className="hover:bg-secondary/80 bg-secondary rounded-[4px] px-[9px] py-[10px]"
+					className="hover:bg-secondary/80 bg-secondary rounded-[4px] px-[9px] py-[10px] hover:brightness-90"
 				>
 					<img aria-hidden src="/assets/svgs/filter.svg" alt="" />
 				</Popover.Button>
@@ -72,17 +75,20 @@ const UserTableSearchBar: FC<UserTableSearchBarProps> = ({ filters, setFilters }
 							</div>
 							<hr className="h-px text-terciary mt-5 mb-6" />
 							<div className="space-x-6">
-								<button className="bg-terciary hover:bg-terciary/70 font-normal py-3 px-4 rounded-[4px] ">
-									Limpiar
-								</button>
-								<button className="bg-secondary hover:bg-secondary/70 text-white font-normal py-3 px-4 rounded-[4px]">
-									Aplicar filtros
-								</button>
+								<button className="btn terciary">Limpiar</button>
+								<button className="btn secondary">Aplicar filtros</button>
 							</div>
 						</Fragment>
 					)}
 				</Popover.Panel>
 			</Popover>
+
+			<div className="ml-auto space-x-4">
+				<button className="btn secondary outlined">Descargar</button>
+				<Link href="/users/add">
+					<a className="btn secondary">Agregar nuevo admin</a>
+				</Link>
+			</div>
 		</div>
 	);
 };

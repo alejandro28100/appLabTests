@@ -111,16 +111,13 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive, delet
 
 						<div className="mt-14 py-6 flex justify-center space-x-4 items-center bg-terciary/30">
 							<button
-								className="px-4 py-3 rounded-[4px] border-secondary border-[1px]"
+								className="btn secondary outlined"
 								ref={cancelButtonRef}
 								onClick={handleToggleModal}
 							>
 								Cancelar
 							</button>
-							<button
-								className="px-4 py-3 rounded-[4px] bg-secondary text-white"
-								onClick={handleDeleteUser}
-							>
+							<button className="btn secondary" onClick={handleDeleteUser}>
 								Si, eliminar
 							</button>
 						</div>
