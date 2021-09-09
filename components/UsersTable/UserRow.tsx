@@ -63,7 +63,7 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive, delet
 					</button>
 					<Link href={`/users/${name}`}>
 						<a title="Ver perfil">
-							<img aria-hidden src="/assets/svgs/edit.svg" />
+							<img aria-hidden src="/assets/svgs/inspect.svg" />
 						</a>
 					</Link>
 				</div>
