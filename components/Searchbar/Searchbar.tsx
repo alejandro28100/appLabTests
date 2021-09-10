@@ -18,7 +18,7 @@ const Searchbar: FC<Searchbar> = ({ user, loading, handleToggleSidebar }) => {
 		<div className="flex items-center bg-secondary w-full h-20 p-6">
 			<div className="flex-grow">
 				<button title="Abrir Menú" className="lg:hidden w-5 h-5" onClick={handleToggleSidebar}>
-					<img aria-hidden src="/assets/svgs/menu.svg" alt="" />
+					<img src="/assets/svgs/menu.svg" alt="" />
 				</button>
 			</div>
 			<Input
@@ -28,7 +28,7 @@ const Searchbar: FC<Searchbar> = ({ user, loading, handleToggleSidebar }) => {
 			<div className="w-px h-full bg-white mx-4 text-sm" />
 			{!loading && user && <UserInfo {...user} />}
 			<button>
-				<img src="/assets/svgs/log-out.svg" alt="Cerrar Sesión" />
+				<img src="/assets/svgs/log-out.svg" alt="" />
 			</button>
 		</div>
 	);

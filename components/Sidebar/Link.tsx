@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-interface Link {
+interface SidebarLinkProps {
 	href?: string;
 	/** URL of an svg file */
 	logo: string;
@@ -15,14 +17,14 @@ interface Link {
 	notificationNum?: number;
 }
 
-const Link: FC<Link> = ({ href, label, logo, active, notificationNum }) => {
-	return (
-		<li
-			className={`w-[256px] h-[49px] pl-12 hover:bg-terciary ${active && 'bg-terciary'}
-			border-t-[1px] boder-b-[1px] border-terciary`}
-		>
-			<a className="inline-block w-full h-full py-3" href={href}>
-				<img aria-hidden="true" className="inline-block" src={logo} />
+const SidebarLink: FC<SidebarLinkProps> = ({ href, label, logo, active, notificationNum }) => (
+	<li
+		className={`w-[256px] h-[49px] pl-12 hover:bg-terciary ${active && 'bg-terciary'}
+		border-t-[1px] boder-b-[1px] border-terciary`}
+	>
+		<Link href={href as string}>
+			<a className="inline-block w-full h-full py-3">
+				<Image layout="fill" alt="" aria-hidden className="inline-block" src={logo} />
 				<span className="ml-2 text-sm">{label}</span>
 				{(notificationNum as number) > 0 && (
 					<span className="bg-[#E8F5E9] text-xs text-[#4CAF50] p-1 font-medium h-5 rounded-sm ml-9">
@@ -30,11 +32,11 @@ const Link: FC<Link> = ({ href, label, logo, active, notificationNum }) => {
 					</span>
 				)}
 			</a>
-		</li>
-	);
-};
-Link.defaultProps = {
+		</Link>
+	</li>
+);
+SidebarLink.defaultProps = {
 	active: false,
 	notificationNum: 0
 };
-export default Link;
+export default SidebarLink;

@@ -1,5 +1,4 @@
 import React, { FC, Fragment } from 'react';
-import Image from 'next/image';
 import Link from './Link';
 
 interface SidebarProps {
@@ -16,7 +15,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, handleToggleSidebar }) => {
 				lg:translate-x-0 lg:static w-[257px] flex-shrink-0 flex-col border-r-[1px] border-terciary bg-white transition duration-300 ease-in`}
 			>
 				<header className="flex justify-center align-center py-[22px]">
-					<Image src="/assets/svgs/logo.svg" width={72} height={59} />
+					<img src="/assets/svgs/logo.svg" />
 				</header>
 				<nav className="flex-1 pb-80">
 					<ul className="flex flex-col">

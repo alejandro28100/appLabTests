@@ -60,7 +60,7 @@ const UsersTable = () => {
 			}
 			return [ ...users ].slice(start, end);
 		},
-		[ users, filters, page, rowsPerPage, loading ]
+		[ users, filters, page, rowsPerPage, loading, shouldFilter, name ]
 	);
 	const totalUsersCount = users.length;
 	const filteredUsers = getFilteredUsers();
@@ -128,7 +128,7 @@ const UsersTable = () => {
 						<div className="flex-shrink-0 w-[250px] 2xl:w-[303px]">
 							Administradores
 							<button>
-								<img className="inline-block mx-4" src="/assets/svgs/arrow-down.svg" aria-hidden />
+								<img alt="" className="inline-block mx-4" src="/assets/svgs/arrow-down.svg" />
 							</button>
 						</div>
 						<p className="flex-shrink-0 w-[165px]">Área</p>
@@ -171,7 +171,7 @@ const UsersTable = () => {
 								disabled={page <= 1}
 								onClick={handlePrevPage}
 							>
-								<img aria-hidden src="/assets/svgs/arrow-left.svg" />
+								<img alt="" src="/assets/svgs/arrow-left.svg" />
 							</button>
 							<button
 								className="disabled:opacity-40"
@@ -179,7 +179,7 @@ const UsersTable = () => {
 								title="Siguiente página"
 								onClick={handleNextPage}
 							>
-								<img aria-hidden src="/assets/svgs/arrow-right.svg" />
+								<img alt="" src="/assets/svgs/arrow-right.svg" />
 							</button>
 						</div>
 					</div>

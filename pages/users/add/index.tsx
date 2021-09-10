@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, Fragment, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';

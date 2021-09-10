@@ -1,5 +1,6 @@
 import React, { FC, Dispatch, SetStateAction, ChangeEvent, Fragment } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import Input from 'components/Input';
 import { Popover } from '@headlessui/react';
@@ -35,7 +36,7 @@ const UserTableSearchBar: FC<UserTableSearchBarProps> = ({ filters, setFilters }
 						title="Filtros de búsqueda"
 						className="hover:bg-secondary/80 bg-secondary rounded-[4px] px-[9px] py-[10px] hover:brightness-90"
 					>
-						<img aria-hidden src="/assets/svgs/filter.svg" alt="" />
+						<Image layout="fill" src="/assets/svgs/filter.svg" alt="" />
 					</Popover.Button>
 
 					<Popover.Panel className="right-0 md:left-0 absolute z-10 w-[300px] md:w-[356px] h-[342px] px-4 py-5 mt-[9px] bg-white shadow-lg">
@@ -44,7 +45,7 @@ const UserTableSearchBar: FC<UserTableSearchBarProps> = ({ filters, setFilters }
 								<div className="flex justify-between">
 									<span className="font-medium">Filtros de búsqueda</span>
 									<Popover.Button title="Cerrar Menú de Filtros de Búsqueda" onClick={() => close()}>
-										<img aria-hidden src="/assets/svgs/close.svg" alt="" />
+										<Image layout="fill" src="/assets/svgs/close.svg" alt="" />
 									</Popover.Button>
 								</div>
 								<hr className="h-px text-terciary my-5" />

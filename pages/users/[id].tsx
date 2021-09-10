@@ -129,7 +129,7 @@ const UserProfile: NextPage = (props) => {
 									<img
 										className="my-1 w-[100px] h-[100px] md:w-[52px] md:h-[52px] rounded-full object-cover"
 										src={user.picture}
-										alt={`Foto de perfil de ${userName}`}
+										alt={userName}
 									/>
 									<p className="text-lg font-semibold">{userName}</p>
 									<div className="flex flex-col md:flex-row">
