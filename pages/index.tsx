@@ -1,22 +1,30 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
+
 import Sidebar from 'components/Sidebar/Sidebar';
 import Searchbar from 'components/Searchbar/Searchbar';
 import UsersTable from 'components/UsersTable/UsersTable';
+
 import { fakeAdminUser } from 'utils/index';
 
 const Home: NextPage = () => {
+	const [ isSidebarOpen, setIsSidebarOpen ] = useState(false);
+
+	function handleToggleSidebar() {
+		setIsSidebarOpen((prev) => !prev);
+	}
+
 	return (
 		<Fragment>
 			<Head>
 				<title>GLI App | Cursos y Certificaciones</title>
 				<meta name="description" content="Front-End technical test for AppLab" />
 			</Head>
-			<div className="flex">
-				<Sidebar />
+			<div className="flex ">
+				<Sidebar isOpen={isSidebarOpen} handleToggleSidebar={handleToggleSidebar} />
 				<div className="w-full flex flex-col">
-					<Searchbar user={fakeAdminUser} loading={false} />
+					<Searchbar handleToggleSidebar={handleToggleSidebar} user={fakeAdminUser} loading={false} />
 					<nav className="pt-8 pl-8">
 						<ol className="flex">
 							<li

@@ -120,23 +120,22 @@ const UsersTable = () => {
 			{loading ? (
 				'Cargando usuarios'
 			) : !loading && filteredUsersCount > 0 ? (
-				<div className="my-4 flex flex-col text-left ">
-					<div className="flex items-center col-span-12 h-[56px] font-semibold text-sm">
-						<div className="w-[60px] text-center">
+				<div className="my-4 flex flex-col text-left overflow-x-auto">
+					<div className="flex items-center w-[996px] lg:w-auto h-[56px] font-semibold text-sm">
+						<div className="flex-shrink-0 w-[60px] text-center">
 							<input aria-disabled type="checkbox" />
 						</div>
-						<div className="xl:w-[250px] 2xl:w-[303px]">
+						<div className="flex-shrink-0 w-[250px] 2xl:w-[303px]">
 							Administradores
 							<button>
 								<img className="inline-block mx-4" src="/assets/svgs/arrow-down.svg" aria-hidden />
 							</button>
 						</div>
-						<div className="w-[165px]">Área</div>
-						<div className="xl:w-[230px] 2xl:w-[263px]">Correo</div>
-						<div className="xl:w-[110px] 2xl:w-[178px]">Estatus</div>
-						<div className="w-[118px]">Detalles</div>
+						<p className="flex-shrink-0 w-[165px]">Área</p>
+						<p className="flex-shrink-0 w-[230px] 2xl:w-[263px]">Correo</p>
+						<p className="flex-shrink-0 w-[110px] 2xl:w-[178px]">Estatus</p>
+						<p className="flex-shrink-0 w-[118px]">Detalles</p>
 					</div>
-
 					{filteredUsers.map((user: any) => (
 						<UserRow
 							key={user.login.uuid}
@@ -151,12 +150,12 @@ const UsersTable = () => {
 							}}
 						/>
 					))}
-					<div className="flex justify-end items-center col-span-12 my-5">
-						<div className="mx-11">
+					<div className="flex flex-shrink-0 justify-start md:justify-end items-center col-span-12 my-5">
+						<div className="md:mx-11">
 							Rows per page:
 							<input
 								title="Cambiar número de usuarios por página"
-								className=" mx-2 w-14 text-center"
+								className=" mx-2 md:w-14 text-center"
 								type="number"
 								value={rowsPerPage}
 								min={1}
@@ -165,7 +164,7 @@ const UsersTable = () => {
 							/>
 						</div>
 						<div>{currentTableRange}</div>
-						<div className="mx-11 space-x-7">
+						<div className="mx-4 md:mx-11 text-xs md:text-base space-x-4 md:space-x-7 flex items-center">
 							<button
 								className="disabled:opacity-40"
 								title="Página anterior"
