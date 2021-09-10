@@ -26,16 +26,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Screenshots
 
-![Admin Page](./screenshots/ss1.jpg)
+![Admin Page](./screenshots/ss1.png)
 
-![User Instant Search](./screenshots/ss2.jpg)
+![User Instant Search](./screenshots/ss2.png)
 
-![Deleting User](./screenshots/ss3.jpg)
+![Deleting User](./screenshots/ss3.png)
 
-![User Profile](./screenshots/ss4.jpg)
+![User Profile](./screenshots/ss4.png)
 
-![Add User (Mobile)](./screenshots/ss5.jpg)
+![Add User (Mobile)](./screenshots/ss5.png)
 
-![Add User Success Message (Mobile)](./screenshots/ss6.jpg)
+![Add User Success Message (Mobile)](./screenshots/ss6.png)
 
 
