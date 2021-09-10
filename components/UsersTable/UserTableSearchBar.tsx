@@ -38,8 +38,8 @@ const UserTableSearchBar: FC<UserTableSearchBarProps> = ({ filters, setFilters }
 						<img aria-hidden src="/assets/svgs/filter.svg" alt="" />
 					</Popover.Button>
 
-					<Popover.Panel className="absolute z-10 w-[356px] h-[342px] px-4 py-5 mt-[9px] bg-white shadow-lg">
-						{({ close, open }) => (
+					<Popover.Panel className="right-0 md:left-0 absolute z-10 w-[300px] md:w-[356px] h-[342px] px-4 py-5 mt-[9px] bg-white shadow-lg">
+						{({ close }) => (
 							<Fragment>
 								<div className="flex justify-between">
 									<span className="font-medium">Filtros de búsqueda</span>
