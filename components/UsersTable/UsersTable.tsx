@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, ChangeEvent } from 'react';
+import React, { useEffect, useState, useCallback, FocusEvent } from 'react';
 
 import UserRow from './UserRow';
 import UserTableSearchBar from './UserTableSearchBar';
@@ -101,7 +101,7 @@ const UsersTable = () => {
 	function handlePrevPage() {
 		setPage((prev) => --prev);
 	}
-	function handleChangeRowPerPage(e: ChangeEvent<HTMLInputElement>) {
+	function handleChangeRowPerPage(e: FocusEvent<HTMLInputElement>) {
 		const value = parseInt(e.target.value) || 1;
 		setRowsPerPage(value);
 	}
@@ -157,10 +157,10 @@ const UsersTable = () => {
 								title="Cambiar número de usuarios por página"
 								className=" mx-2 md:w-14 text-center"
 								type="number"
-								value={rowsPerPage}
+								defaultValue={rowsPerPage}
 								min={1}
 								max={totalUsers}
-								onChange={handleChangeRowPerPage}
+								onBlur={handleChangeRowPerPage}
 							/>
 						</div>
 						<div>{currentTableRange}</div>
