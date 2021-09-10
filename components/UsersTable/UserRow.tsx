@@ -65,7 +65,7 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive, delet
 				initialFocus={cancelButtonRef}
 				open={isModalOpen}
 				onClose={handleToggleModal}
-				className="fixed z-10 inset-0 overflow-y-auto"
+				className="fixed z-50 inset-0 overflow-y-auto"
 			>
 				<div className="flex items-center justify-center min-h-screen dura">
 					<Dialog.Overlay className="fixed inset-0 bg-primary/80" />
