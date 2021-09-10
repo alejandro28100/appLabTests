@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface SidebarLinkProps {
@@ -24,7 +23,7 @@ const SidebarLink: FC<SidebarLinkProps> = ({ href, label, logo, active, notifica
 	>
 		<Link href={href as string}>
 			<a className="inline-block w-full h-full py-3">
-				<Image layout="fill" alt="" aria-hidden className="inline-block" src={logo} />
+				<img alt="" className="inline-block" src={logo} />
 				<span className="ml-2 text-sm">{label}</span>
 				{(notificationNum as number) > 0 && (
 					<span className="bg-[#E8F5E9] text-xs text-[#4CAF50] p-1 font-medium h-5 rounded-sm ml-9">

@@ -1,6 +1,5 @@
 import { FC, Fragment, useRef, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 import { Dialog } from '@headlessui/react';
 
@@ -32,7 +31,7 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive, delet
 			<div className="flex flex-shrink-0 items-center w-[996px] lg:w-auto justify-start h-[72px] hover:bg-terciary text-sm border-t-[1px] border-b-[1px] border-terciary">
 				<input className="w-[60px] text-center flex-shrink-0" aria-disabled type="checkbox" />
 				<p className="flex-shrink-0 w-[250px] 2xl:-w-[303px] flex items-center justify-start font-semibold">
-					<Image className="inline-block w-10 h-10 mr-2 rounded-full " src={picture} alt={name} />
+					<img className="inline-block w-10 h-10 mr-2 rounded-full " src={picture} alt={name} />
 					{name}
 				</p>
 				<p className="flex-shrink-0 w-[165px]">{area}</p>
@@ -49,15 +48,15 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive, delet
 				<div className="flex-shrink-0 w-[118px] flex items-center space-x-5 pr-5">
 					<Link href={`/users/${name}?edit=true`}>
 						<a title="Editar información">
-							<Image alt="" aria-hidden src="/assets/svgs/edit.svg" />
+							<img alt="" src="/assets/svgs/edit.svg" />
 						</a>
 					</Link>
 					<button title="Eliminar" onClick={handleToggleModal}>
-						<Image alt="" aria-hidden src="/assets/svgs/delete.svg" />
+						<img alt="" src="/assets/svgs/delete.svg" />
 					</button>
 					<Link href={`/users/${name}`}>
 						<a title="Ver perfil">
-							<Image alt="" aria-hidden src="/assets/svgs/inspect.svg" />
+							<img alt="" src="/assets/svgs/inspect.svg" />
 						</a>
 					</Link>
 				</div>
@@ -77,7 +76,7 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive, delet
 							title="Cerrar menú"
 							onClick={handleToggleModal}
 						>
-							<Image alt="" aria-hidden src="/assets/svgs/x-circle.svg" />
+							<img alt="" aria-hidden src="/assets/svgs/x-circle.svg" />
 						</button>
 						<div className="px-4 py-5 relative">
 							<Dialog.Title className="text-secondary text-base font-semibold leading-5">
@@ -89,11 +88,7 @@ const UserRow: FC<UserRowProps> = ({ picture, area, name, email, isActive, delet
 							</Dialog.Description>
 							<article className="mt-4 flex items-center space-x-2">
 								<aside className="w-10 h-10 rounded-full">
-									<Image
-										className="w-full h-full object-cover rounded-full"
-										src={picture}
-										alt={name}
-									/>
+									<img className="w-full h-full object-cover rounded-full" src={picture} alt={name} />
 								</aside>
 								<p className="">
 									<span className="font-semibold text-sm ">{name}</span>
