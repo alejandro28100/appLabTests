@@ -6,7 +6,9 @@ interface FileInputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const FileInput: FC<FileInputProps> = ({ imagePreview, containerClassName, ...rest }) => (
-	<div className={`${containerClassName} shadow relative flex flex-col justify-center rounded`}>
+	<div
+		className={`${containerClassName} ml-auto mr-auto md:ml-0 shadow relative flex flex-col justify-center rounded`}
+	>
 		<div className="h-[108px] flex-grow bg-terciary flex items-center justify-center">
 			{imagePreview ? (
 				<img className="w-full h-full object-cover rounded-t" src={imagePreview} alt="" />

@@ -34,6 +34,12 @@ const AddUser: NextPage = (props) => {
 
 	const [ isUserSaved, setIsUserSaved ] = useState(false);
 
+	const [ isSidebarOpen, setIsSidebarOpen ] = useState(false);
+
+	function handleToggleSidebar() {
+		setIsSidebarOpen((prev) => !prev);
+	}
+
 	function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		/** Handle saving user data on the server */
@@ -93,9 +99,9 @@ const AddUser: NextPage = (props) => {
 				<meta name="description" content="Front-End technical test for AppLab" />
 			</Head>
 			<div className="flex">
-				<Sidebar />
+				<Sidebar isOpen={isSidebarOpen} handleToggleSidebar={handleToggleSidebar} />
 				<div className="w-full flex flex-col">
-					<Searchbar user={fakeAdminUser} loading={false} />
+					<Searchbar handleToggleSidebar={handleToggleSidebar} user={fakeAdminUser} loading={false} />
 					<nav className="pt-8 pl-8">
 						<ol className="flex">
 							<li
@@ -109,10 +115,10 @@ const AddUser: NextPage = (props) => {
 					</nav>
 					<main className="px-8 pb-8">
 						<h1 className="font-semibold text-xl">Agregar Administrador</h1>
-						<section className="my-6">
+						<section className="my-6 flex md:block justify-center md:text-left">
 							{!isUserSaved ? (
 								<form onSubmit={handleSubmitForm} onReset={handleResetForm}>
-									<p className="font-normal leading-6 text-sm my-3">
+									<p className="text-center md:text-left font-normal leading-6 text-sm my-3">
 										Sube tu fotografía con un peso menor a 2MB
 									</p>
 
@@ -188,22 +194,22 @@ const AddUser: NextPage = (props) => {
 								</form>
 							) : (
 								<Fragment>
-									<div className="w-[52px] h-[52px] bg-[#6FCF97] rounded-full flex items-center justify-center">
-										<img
-											className="w-[16px] h-[11px] object-contain"
-											aria-hidden
-											src="/assets/svgs/tick.svg"
-											alt=""
-										/>
-									</div>
-
-									<h2 className="my-1 font-bold text-base ">Cambios guardados</h2>
-									<p>Tu administrador se ha guardado con éxito.</p>
-
-									<div className="mt-9 ">
-										<Link href="/">
-											<a className="btn secondary">Regresar a mis administradores</a>
-										</Link>
+									<div className="flex flex-col justify-center md:justify-start items-center md:items-start">
+										<div className="w-[52px] h-[52px] bg-[#6FCF97] rounded-full flex items-center justify-center">
+											<img
+												className="w-[16px] h-[11px] object-contain"
+												aria-hidden
+												src="/assets/svgs/tick.svg"
+												alt=""
+											/>
+										</div>
+										<h2 className="my-1 font-bold text-base ">Cambios guardados</h2>
+										<p>Tu administrador se ha guardado con éxito.</p>
+										<div className="mt-9 ">
+											<Link href="/">
+												<a className="btn secondary">Regresar a mis administradores</a>
+											</Link>
+										</div>
 									</div>
 								</Fragment>
 							)}
