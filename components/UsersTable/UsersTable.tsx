@@ -60,7 +60,7 @@ const UsersTable = () => {
 			}
 			return [ ...users ].slice(start, end);
 		},
-		[ users, filters, page, rowsPerPage, loading, shouldFilter, name ]
+		[ users, page, rowsPerPage, loading, shouldFilter, name ]
 	);
 	const totalUsersCount = users.length;
 	const filteredUsers = getFilteredUsers();

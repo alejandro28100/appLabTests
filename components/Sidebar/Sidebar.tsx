@@ -1,4 +1,5 @@
 import React, { FC, Fragment } from 'react';
+import { default as NextLink } from 'next/link';
 import Link from './Link';
 
 interface SidebarProps {
@@ -15,7 +16,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, handleToggleSidebar }) => {
 				lg:translate-x-0 lg:static w-[257px] flex-shrink-0 flex-col border-r-[1px] border-terciary bg-white transition duration-300 ease-in`}
 			>
 				<header className="flex justify-center align-center py-[22px]">
-					<img src="/assets/svgs/logo.svg" />
+					<img alt="" src="/assets/svgs/logo.svg" />
 				</header>
 				<nav className="flex-1 pb-80">
 					<ul className="flex flex-col">
@@ -35,9 +36,9 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, handleToggleSidebar }) => {
 					<div className="text-left flex justify-around bg-terciary/60 p-[10px] rounded">
 						<div className="text-sm">
 							¿Necesitas Ayuda? <br />
-							<a className="underline" href="/">
-								Ir a Sección de ayuda
-							</a>
+							<NextLink href="/">
+								<a className="underline">Ir a Sección de ayuda</a>
+							</NextLink>
 						</div>
 						<img src="/assets/svgs/external-link.svg" />
 					</div>
